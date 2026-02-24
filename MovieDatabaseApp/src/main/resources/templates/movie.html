@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Add Movie</h1>
+
+<form th:action="@{/add}" th:object="${movie}" method="post">
+    <label for="movieTitle">Movie Title</label>
+    <input type="text" th:field="*{title}" id="movieTitle">
+    <br/>
+    <label for="movieGenre">Movie Genre</label>
+    <input type="text" th:field="*{genre}" id="movieGenre">
+    <br/>
+    <label for="movieReleaseYear">Movie Release Year</label>
+    <input type="number" th:field="*{releaseYear}" id="movieReleaseYear">
+    </br>
+    <label for="movieDirector">Movie Director </label>
+    <input type="text" th:field="*{director}" id="movieDirector">
+    </br>
+    <label for="movieDuration">Movie Duration</label>
+    <input type="number" th:field="*{durationMinutes}" id="movieDuration">
+    <br/>
+    <button>Submit</button>
+</form>
+</body>
+</html>

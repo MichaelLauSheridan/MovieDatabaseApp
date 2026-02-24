@@ -1,29 +1,26 @@
 package com.example.MovieDatabaseApp.service;
 
+import com.example.MovieDatabaseApp.data.MovieRepo;
 import com.example.MovieDatabaseApp.model.Movie;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MovieService {
 
-    private List<Movie> movies;
-
-    public MovieService() {
-        movies = new ArrayList<>();
-        movies.add(new Movie());
+    final private MovieRepo movieRepo;
+    public MovieService(MovieRepo movieRepo) {
+        this.movieRepo = movieRepo;
     }
 
     // Get list of all movies
-    public List<Movie> getMovies() {
-        return this.movies = movies;
+    public List<Movie> findAll() { return movieRepo.findAll();
     }
 
     // Add a movie
-    public void addMovies(Movie movie) {
-        this.movies.add(movie);
+    public void save(Movie movie) {
+        movieRepo.save(movie);
     }
 
     // Update
@@ -31,8 +28,10 @@ public class MovieService {
     }
 
     // Delete
-    public void removeMovie(int id) {
-        this.movies.removeIf(movie -> movie.getId() == id);
+    public void delete(int id) {
+        movieRepo.deleteById(id);
     }
-
+    public Movie getMovie(int id) {
+        return null;
+    };
 }
