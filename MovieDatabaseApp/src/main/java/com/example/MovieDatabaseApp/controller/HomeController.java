@@ -27,12 +27,18 @@ public class HomeController {
     @GetMapping("/add")
     public String addMovie(Model model) {
         model.addAttribute("movie", new Movie());
-        return "movie";
+        return "add-movie";
     }
 
     @PostMapping("/add")
     public String add(@ModelAttribute Movie movie) {
         movieService.save(movie);
         return "redirect:/";
+    }
+
+    @GetMapping("/movies")
+    public String viewMovies(Model model) {
+        model.addAttribute("movies", movieService.findAll());
+        return "movie-list";
     }
 }
