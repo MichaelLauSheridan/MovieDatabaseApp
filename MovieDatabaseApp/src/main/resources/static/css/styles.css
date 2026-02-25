@@ -1,0 +1,14 @@
+/* Basic layout */
+.container { max-width: 900px; margin: 0 auto; padding: 24px; }
+
+/* Navbar spacing */
+.navbar { margin-bottom: 18px; }
+
+/* Form spacing */
+.form-group { margin-bottom: 14px; }
+
+/* Validation */
+.error { color: red; font-size: 0.9rem; }
+
+/* Table spacing */
+.table { margin-top: 14px; }
