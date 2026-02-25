@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Movie</title>
+    <style>.error{color:red;}</style>
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}">Home</a> |
+    <a th:href="@{/movies}">Movies</a> |
+    <a th:href="@{/add}">Add Movie</a> |
+    <a th:href="@{/search}">Search</a>
+</nav>
+<hr/>
+
+<h1>Edit Movie</h1>
+
+<form th:action="@{/movies/edit/{id}(id=${movie.id})}" th:object="${movie}" method="post">
+
+    <label for="movieTitle">Movie Title</label>
+    <input type="text" id="movieTitle" th:field="*{title}">
+    <span class="error" th:errors="*{title}"></span>
+    <br/>
+
+    <label for="genre">Movie Genre</label>
+    <select id="genre" th:field="*{genre}">
+        <option value="">-- Select Genre --</option>
+        <option th:each="g : ${genres}" th:value="${g}" th:text="${g}"></option>
+    </select>
+    <span class="error" th:errors="*{genre}"></span>
+    <br/>
+
+    <label for="movieReleaseYear">Release Year</label>
+    <input type="number" id="movieReleaseYear" th:field="*{releaseYear}">
+    <span class="error" th:errors="*{releaseYear}"></span>
+    <br/>
+
+    <label for="movieRating">Rating</label>
+    <input type="number" step="0.1" min="0" max="10" id="movieRating" th:field="*{rating}">
+    <span class="error" th:errors="*{rating}"></span>
+    <br/>
+
+    <label for="movieDirector">Director</label>
+    <input type="text" id="movieDirector" th:field="*{director}">
+    <span class="error" th:errors="*{director}"></span>
+    <br/>
+
+    <label for="movieDuration">Duration (mins)</label>
+    <input type="number" id="movieDuration" th:field="*{durationMinutes}">
+    <span class="error" th:errors="*{durationMinutes}"></span>
+    <br/>
+
+    <button type="submit">Save Changes</button>
+    <a th:href="@{/movies}">Cancel</a>
+</form>
+
+</body>
+</html>

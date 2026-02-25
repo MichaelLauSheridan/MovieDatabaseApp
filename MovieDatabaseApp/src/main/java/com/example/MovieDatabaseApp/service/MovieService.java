@@ -6,6 +6,7 @@ import com.example.MovieDatabaseApp.model.Movie;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MovieService {
@@ -40,4 +41,13 @@ public class MovieService {
     public Movie getMovie(int id) {
         return null;
     };
+
+    // Find by ID
+    public Optional<Movie> findById(int id) {
+        return movieRepo.findById(id);
+    }
+
+    public void deleteById(int id) {
+        movieRepo.deleteById(id);
+    }
 }

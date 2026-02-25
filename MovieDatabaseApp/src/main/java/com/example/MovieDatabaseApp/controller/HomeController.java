@@ -7,10 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HomeController {
@@ -76,5 +73,58 @@ public class HomeController {
 
         model.addAttribute("movies", movieService.search(title, genre, minRating));
         return "search-movie"; // templates/search.html
+    }
+
+    @GetMapping("/movies/{id}")
+    public String movieDetails(@PathVariable int id, Model model) {
+
+        Movie movie = movieService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Movie not found: " + id));
+
+        model.addAttribute("movie", movie);
+        return "movie-details"; // templates/movie-details.html
+    }
+
+    @GetMapping("/movies/edit/{id}")
+    public String showEditForm(@PathVariable int id, Model model) {
+        Movie movie = movieService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Movie not found: " + id));
+
+        model.addAttribute("movie", movie);
+        model.addAttribute("genres", Genre.values()); // needed for dropdown
+        return "edit-movie";
+    }
+
+    @PostMapping("/movies/edit/{id}")
+    public String updateMovie(@PathVariable int id,
+                              @Valid @ModelAttribute("movie") Movie movie,
+                              BindingResult result,
+                              Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("genres", Genre.values());
+            return "edit-movie";
+        }
+
+        // Make sure we update the correct record
+        movie.setId(id);
+
+        movieService.save(movie);
+        return "redirect:/movies";
+    }
+
+    @GetMapping("/movies/delete/{id}")
+    public String confirmDelete(@PathVariable int id, Model model) {
+        Movie movie = movieService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Movie not found: " + id));
+
+        model.addAttribute("movie", movie);
+        return "delete-movie"; // templates/delete-movie.html
+    }
+
+    @PostMapping("/movies/delete/{id}")
+    public String deleteMovie(@PathVariable int id) {
+        movieService.deleteById(id);
+        return "redirect:/movies";
     }
 }
