@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Search Movies</title>
+    <style>
+        .error { color: red; }
+    </style>
+</head>
+<body>
+<nav>
+    <a th:href="@{/}">Home</a> |
+    <a th:href="@{/movies}">Movies</a> |
+    <a th:href="@{/add}">Add Movie</a> |
+    <a th:href="@{/search}">Search</a>
+</nav>
+
+<h1>Search Movies</h1>
+
+<form th:action="@{/search}" method="get">
+    <label for="title">Title contains:</label>
+    <input type="text" id="title" name="title" th:value="${title}">
+    <br/><br/>
+
+    <label for="genre">Genre:</label>
+    <select id="genre" name="genre">
+        <option value="">-- Any Genre --</option>
+        <option th:each="g : ${genres}"
+                th:value="${g}"
+                th:text="${g}"
+                th:selected="${genre} == ${g}">
+        </option>
+    </select>
+    <br/><br/>
+
+    <label for="minRating">Min Rating:</label>
+    <input type="number" step="0.1" min="0" max="10" id="minRating" name="minRating" th:value="${minRating}">
+    <br/><br/>
+
+    <button type="submit">Search</button>
+    <a th:href="@{/search}">Clear</a>
+</form>
+
+<hr/>
+
+<h2>Results</h2>
+
+<table border="1">
+    <tr>
+        <th>Id</th><th>Title</th><th>Genre</th><th>Year</th><th>Rating</th><th>Director</th><th>Duration</th>
+    </tr>
+    <tr th:each="movie : ${movies}">
+        <td th:text="${movie.id}"></td>
+        <td th:text="${movie.title}"></td>
+        <td th:text="${movie.genre}"></td>
+        <td th:text="${movie.releaseYear}"></td>
+        <td th:text="${movie.rating}"></td>
+        <td th:text="${movie.director}"></td>
+        <td th:text="${movie.durationMinutes}"></td>
+    </tr>
+</table>
+<br/>
+</body>
+</html>

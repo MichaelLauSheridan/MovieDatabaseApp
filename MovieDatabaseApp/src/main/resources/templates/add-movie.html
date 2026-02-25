@@ -1,29 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
+<nav>
+    <a th:href="@{/}">Home</a> |
+    <a th:href="@{/movies}">Movies</a> |
+    <a th:href="@{/add}">Add Movie</a> |
+    <a th:href="@{/search}">Search</a>
+</nav>
+<hr/>
     <h1>Add Movie</h1>
 
 <form th:action="@{/add}" th:object="${movie}" method="post">
     <label for="movieTitle">Movie Title</label>
     <input type="text" th:field="*{title}" id="movieTitle">
+    <span class="error" th:errors="*{title}"></span>
     <br/>
     <label for="movieGenre">Movie Genre</label>
-    <input type="text" th:field="*{genre}" id="movieGenre">
+    <select th:field="*{genre}" id="movieGenre">
+        <option value="">-- Select Genre --</option>
+        <option th:each="g : ${genres}"
+                th:value="${g}"
+                th:text="${g}">
+        </option>
+    </select>
+    <span class="error" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></span>
     <br/>
     <label for="movieReleaseYear">Movie Release Year</label>
     <input type="number" th:field="*{releaseYear}" id="movieReleaseYear">
-    </br>
+    <span class="error" th:errors="*{releaseYear}"></span>
+    <br/>
+    <label for="movieRating">Movie Rating</label>
+    <input type="number" th:field="*{rating}" id="movieRating"/>
+    <span class="error" th:errors="*{rating}"></span>
+    <br/>
     <label for="movieDirector">Movie Director </label>
     <input type="text" th:field="*{director}" id="movieDirector">
-    </br>
+    <span class="error" th:errors="*{director}"></span>
+    <br/>
     <label for="movieDuration">Movie Duration</label>
     <input type="number" th:field="*{durationMinutes}" id="movieDuration">
+    <span class="error" th:errors="*{durationMinutes}"></span>
     <br/>
-    <button>Submit</button>
+    <button type="submit">Submit</button>
 </form>
 </body>
 </html>

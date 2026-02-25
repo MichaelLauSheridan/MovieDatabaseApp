@@ -6,12 +6,15 @@
     <title>Title</title>
 </head>
 <body>
+<nav>
+    <a th:href="@{/}">Home</a> |
+    <a th:href="@{/movies}">Movies</a> |
+    <a th:href="@{/add}">Add Movie</a> |
+    <a th:href="@{/search}">Search</a>
+</nav>
+<hr/>
     <h1>Student Name: Michael Lau</h1>
     <h1>Student ID: 991769630</h1>
-    <h1>Home Page</h1>
-    <p th:text="'Hello!'"></p>
-
-    <a href="/add">Add New Movie</a>
-    <a href="/movies">View All Movies</a>
+    <p th:text="'Hello! Welcome to the Movie Database App!'"></p>
 </body>
 </html>

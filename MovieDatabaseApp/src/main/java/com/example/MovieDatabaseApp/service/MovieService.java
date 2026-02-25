@@ -1,6 +1,7 @@
 package com.example.MovieDatabaseApp.service;
 
 import com.example.MovieDatabaseApp.data.MovieRepo;
+import com.example.MovieDatabaseApp.model.Genre;
 import com.example.MovieDatabaseApp.model.Movie;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,11 @@ public class MovieService {
     final private MovieRepo movieRepo;
     public MovieService(MovieRepo movieRepo) {
         this.movieRepo = movieRepo;
+    }
+
+    // Search movie
+    public List<Movie> search(String title, Genre genre, Double minRating) {
+        return movieRepo.search(title, genre, minRating);
     }
 
     // Get list of all movies
