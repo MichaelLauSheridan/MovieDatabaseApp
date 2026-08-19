@@ -1,6 +1,3 @@
-// Student Name: Michael Lau
-// Student ID : 991769630
-
 package com.example.MovieDatabaseApp.data;
 
 import com.example.MovieDatabaseApp.model.Genre;
